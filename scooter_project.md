@@ -98,21 +98,72 @@ Tau appears to be in the upper 200s for most of the census tracts with frequent 
 
 The graph of lambda_2 above creates a predicted daily count of trips for the most popular census  tracts (not yet taking into account weekend vs. weekday) .
 
-###
+### Machine Learning Analysis
 
+The Jupyter notebook for this section can be found [here](https://github.com/trevbhatt/predicting_scooter_utilization/blob/master/machine_learning_analysis.ipynb).
 
-```javascript
-if (isAwesome){
-  return true
-}
-```
+#### Ridge Regression
+The goal of this analysis is to predict the number of rides in a census tract on a given day.  In order to find the number of rides using the given data, the dataframe of rides for each tract can be resampled by day.
+In an attempt to capture the seasonality of the data, I implemented one hot encoding to expand the date column from 1 to 374 binary columns to represent year, day of year, day of month, and day of week.
+On the 48453001100 census tract, this resulted in a low r2 score (0.355) and a large mean absolute percent error.  The predicted and test values are shown on figure 10.
 
-### 3. Support the selection of appropriate statistical tools and techniques
+<img src='images/figure_9.png'>
+Figure 10--Ridge Regression Results
 
-<img src="images/dummy_thumbnail.jpg?raw=true"/>
+#### Batch Gradient Descent
+Using the same one hot encoded data, I attempted a batch gradient descent method with learning rate and number of iterations as hyperparameters.  Even with the quickest convergence, shown in Figure 11, the r2 score was a dismal 0.192, with a very large mean absolute error.
 
-### 4. Provide a basis for further data collection through surveys or experiments
+<img src='images/figure_11.png'>
+Figure 11: Convergence of the batch gradient descent model
 
-Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+#### Facebook Prophet
+Facebook prophet is a forecasting procedure that makes prediction on time series data.  The major tunable hyperparameters of the Facebook Prophet model are trend, seasonality, and holidays (Letham 7).
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+##### Trends and Changepoints
+In Figure 13, the changes in the slope of the trend line correspond to changepoints in the general trend of the daily use data.  These changepoints are highlighted in Figure 12.
+
+<img src='images/figure_12.png'>
+Figure 12: Regression line and confidence interval of predictions by Facebook Prophet for 48453001100
+
+##### Holidays and South by Southwest
+At the beginning of March the city of Austin sees a major influx of visitors attending the popular South by Southwest conference.  Facebook prophet takes a dataframe of major events and holidays and measures their effect on the prediction.  Their effects can be seen in the holidays graph of Figure 12, notice the largest spike at the beginning of March.
+
+##### Seasonality
+Seasonality can be specified yearly, monthly, weekly, and daily.  In this model, weekly and yearly seasonality effects are shown in figure 13.
+
+<img src='images/figure_13.png'>
+igure  13-- Trend, Holidays, and Weekly and Yearly seasonality
+
+#### Business Impact
+
+##### Fleet Usage
+Because these forecasts are the sum total of all scooter providers, it would be naive for one company to assume that they could place the predicted number of scooters and optimize their utilization.  However, these numbers can be used for a scooter provider to determine where to place what percentage of their fleet.
+
+<img src='images/figure_14.png'>
+Figure 14--Recommended fleet distribution.
+
+By default, Facebook Prophet predicts with an 80% uncertainty margin. If the provider wanted to adopt a more aggressive approach in some census tracts and a more conservative approach in others, the lower and upper bounds of the uncertainty can be used to calculate the percentage of fleet to use in the census tract.  For example, setting 48453001100 and 48453000601 as aggressive yields a slightly different composition in Figure 15.
+
+<img src='images/figure_15.png'>
+Figure 15--Recommended fleet distribution with two ‘aggressive’ estimates
+
+Below are three forecasts for an example date (September 30, 2019) with the same census tracts (48453001100 and 4845300601) set to neutral,  ‘aggressive,’ and ‘conservative.’  Note that setting all census tracts as either aggressive or conservative would not produce meaningful results, because the terms ‘aggressive’ and ‘conservative’ are relative to the other census tracts.
+<img src='images/3_forecasts.png'>
+
+##### Daily Dashboard
+Finally, the distribution can be made into a daily dashboard that shows where in the prediction period the forecast was made, the percent distribution and the number of scooters to deploy for a given fleet size. Figure 16 shows an example of this dashboard.
+
+<img src='images/figure_16a.png'>
+<img src='images/figure_16b.png'>
+<img src='images/figure_16c.png'>
+
+### Future Enhancements
+Below are some ideas for future enhancements to the model.
+1. An hourly model could be used if scooter providers were interested in providing a more dynamically changing fleet distribution.
+2. Weather data might improve the predictions of the model.  Weather forecasts could be combined with historical weather data to influence the model as a type of ‘holdiay’ seasonality.
+
+### Resources
+P. Bazin, “Linear Regression: Implementation, Hyperparameters, Comparison - Pavel Bazin: Software Engineering, Machine Learning,” Linear Regression: Implementation, Hyperparameters, Comparison, 26-Jan-2018. [Online]. Available: http://pavelbazin.com/post/linear-regression-hyperparameters/. [Accessed: Dec-2019].
+Scikit-learn: Machine Learning in Python, Pedregosa et al., JMLR 12, pp. 2825-2830, 2011.
+Taylor SJ, Letham B. 2017. Forecasting at scale. PeerJ Preprints 5:e3190v2 https://doi.org/10.7287/peerj.preprints.3190v2
+C. Davidson-Pilon, “Probabilistic-Programming-and-Bayesian-Methods-for-Hackers,” GitHub. [Online]. Available: https://github.com/CamDavidsonPilon/Probabilistic-Programming-and-Bayesian-Methods-for-Hackers. [Accessed: Dec-2019].
