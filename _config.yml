@@ -1,13 +1,7 @@
 title: Trevor Bhattacharya # your name (or website title) here
 logo: "/images/Profile Picture.jpeg" # your photo (or logo) here
 description: > # your text below (remove <br> elements if you don't need line breaks)
-I have five years of experience leading technical and industrial projects that relied on data to ensure their systems' success. I love finding new and useful ways to understand data.
-
-I created visualizations and reports from performance data at BNSF's rail yards across the US. I used this data to optimize performance. As an engineer, I know firsthand the power of useful data to make substantial improvements on operations.
-
-Most recently, I was Project Manager at Siemens, where I directed teams of engineers, technicians, and electricians to implement smart building control systems in the Portland, OR area.<br>
-  Second description 
-  <br><br>
+<br><br>
   <a href="https://www.linkedin.com/in/trevbhatt/">View My LinkedIn Profile</a> 
   
 theme: jekyll-theme-minimal
