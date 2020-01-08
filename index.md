@@ -2,9 +2,9 @@
 
 ---
 
-### Category Name 1 
+### Category Name 1
 
-[Predicting Scooter Utilization](/sample_page)
+[Predicting Scooter Utilization](/scooter_project.md)
 <img src="images/dummy_thumbnail.jpg?raw=true"/>
 
 ---
