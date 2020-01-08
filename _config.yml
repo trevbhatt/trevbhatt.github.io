@@ -1,8 +1,6 @@
 title: Trevor Bhattacharya # your name (or website title) here
 logo: "/images/Profile Picture.jpeg" # your photo (or logo) here
-description: # your text below (remove <br> elements if you don't need line breaks)
-"Over 5 years experience leading technical and industrial data-based projects."
-"I love finding new and useful ways to understand data."
+description: Over 5 years experience leading technical and industrial data based projects. I love finding new and useful ways to understand data to build the world around us.
 
 theme: jekyll-theme-minimal
 google_analytics: UA-000000-0 # your Google Analytics tracking ID here
