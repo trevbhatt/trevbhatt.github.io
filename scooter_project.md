@@ -151,7 +151,7 @@ Below are three forecasts for an example date (September 30, 2019) with the same
 <img src='images/3_forecasts.png'>
 
 ##### Daily Dashboard
-Finally, the distribution can be made into a daily dashboard that shows where in the prediction period the forecast was made, the percent distribution and the number of scooters to deploy for a given fleet size. Figure 16 shows an example of this dashboard.
+The distribution can be made into a daily dashboard that shows where in the prediction period the forecast was made, the percent distribution and the number of scooters to deploy for a given fleet size. Figure 16 shows an example of this dashboard.
 
 <img src='images/figure_16a.png'>
 <img src='images/figure_16b.png'>
