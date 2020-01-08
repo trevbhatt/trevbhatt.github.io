@@ -1,6 +1,6 @@
 ## Terminal Process Control
 
-I traveled across BNSF Railway's system developing and testing Terminal Process Control (TPC) in BNSF's major rail hubs.  My experience with this project inspired me to pursue a full-time career in data science.
+I traveled across BNSF Railway's system developing and testing Terminal Process Control (TPC) in BNSF's major rail hubs.  My experience with this project inspired me to pursue a full-time career in data science!
 
 TPC is a modern control system for automatically sorting train cars at [classification (hump) yards](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=19&cad=rja&uact=8&ved=2ahUKEwjLmpvti_XmAhVNj54KHUoXDX0QygQwEnoECAIQBw&url=https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FClassification_yard%23Hump_yard&usg=AOvVaw1lfyrbpmsKRMIIWBMu9T46). 160-ton train cars are rolled down a hill while TPC controls their speed and routes them to a destination.  The largest yards process over 2000 cars per day!
 
@@ -18,9 +18,9 @@ I managed the installation of new signal systems and the fast rebuilding of syst
 In 2017, there was some major flooding in Connell, Washington.  My team and I responded to monitor equipment conditions for safety and to be poised to quickly resume operations.  As the major arteries of US commerce, a transcontinental outage could have outsized impact on the region.
 
 <img src="images/connell_flood.png"/>
-Flooding outside Connell, WA.  Safe restoration of service at maximum speed was critical.
+Flooding outside Connell, WA.  Safe restoration of service as quickly as possible was critical.
 
-The summer after these floods, fires near the Columbia River took off.  After the fire below burned itself out, I managed the inspection of systems to ensure that signal systems were safe fore operations.
+The summer after these floods, fires near the Columbia River took off.  After the fire below burned itself out, I managed the inspection of systems to ensure that signal systems were safe for operations.
 
 <img src="images/fire.jpeg"/>
 Fire near the north bank of the Columbia River Gorge--don't worry, these crews evacuated before the fire could spread.
