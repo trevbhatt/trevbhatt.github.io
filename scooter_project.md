@@ -1,4 +1,5 @@
 ## Predicting Scooter utilization
+### [Check out the Github repository here](https://github.com/trevbhatt/predicting_scooter_utilization)
 Using Machine learning to improve strategic placement of scooters in Austin, TX.
 
 <img src="images/austin_scooter.jpg">
