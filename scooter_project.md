@@ -4,7 +4,7 @@ Using Machine learning to improve strategic placement of scooters in Austin, TX.
 
 <img src="images/austin_scooter.jpg">
 
-**Project description:** Now ubiquitous, the electric scooter cruises through bike lanes and sidewalks of every major US city.  In order to stay competitive, operating companies need to ensure their scooters or e-bikes are highly utilized.  They must ensure that their fleets are in place to meet demand.  Using data provided by the city of Austin, TX, I implemented various machine learning strategies to predict optimal fleet distribution.
+**Project description:** Now ubiquitous, the electric scooter cruises through bike lanes and sidewalks of every major US city.  In order to stay competitive, operating companies need to ensure their scooters or e-bikes are highly utilized.  They must ensure that their fleets are in place to meet demand.  Using data provided by the city of Austin, TX, I implemented various machine learning strategies to predict optimal fleet distribution.  To jump directly to the Facebook Prophet model, [click here](#Facebook Prophet)
 
 ### Importing and Cleaning the data
 
@@ -62,53 +62,56 @@ Figure 5--Trip routes originating in census tract 48453001100
 
 ##### Time of Day and Day of Week
 
-As expected, we can see stark differences in behavior depending on time of day and day of the week in Figure 6.
+As you might expect, there are great differences in behavior depending on time of day and day of the week. Figure 6 shows a different sized curve for each day, almost all peaking near 3:00 PM.
 
 <img src='images/figure_6.png'>
 Figure 6--Total Daily Ridership per Hour
 
-Most scooter companies require/encourage chargers to drop off their scooters by 7AM, so this study will focus on the daily variations, counting on deliveries occurring during the early morning valley shared by each day.
+Most scooter companies require/encourage the chargers to drop off their scooters by 7AM, so this study will focus on the daily variations, counting on deliveries occurring during the early morning valley shared by each day.
 
-#### Bayesian Markov Chain Data Analysis
+#### Bayesian Markov Chain Monte Carlo Data Analysis
 The Jupyter notebook for this section can be found [here](https://github.com/trevbhatt/predicting_scooter_utilization/blob/master/statistical_data_analysis.ipynb).
-To begin we attempt to find an initial model to fit the data and give a general idea of the expected value on a given day.  The model is discrete data that may be able to be modeled as a Poisson distribution:
+
+To get an idea of a daily expected number of rides, I attempted to find an initial model to fit the data using a Markov Chain Monte Carlo (MCMC) method.  The data is discrete and may be able to be modeled as a Poisson distribution:
 <img src='images/equation.png'>
 
-The parameter lambda can be estimated using Markov Chain Monte Carlo (MCMC) analysis and PyMC3.  In a poisson distribution, lambda can be used to estimate the expected count on a given day.
+I used MCMC analysis and PyMC3 to generate posteriors for lambda.  Lambda here will represent the expected daily value.
 
-The total number of trips per day (for all Census Tracts) (Figure 7) appears to indicate that the behavior is not consistent across the entire time that the data was taken.
+The total number of trips per day (for all Census Tracts) (Figure 7) appears to change at some point in the data.
 
 <img src='images/figure_7.png'>
 Figure 7--Number of daily trips in census tract 48453001100
 
 To account for this, we can attempt to understand when this change occurred.  That is, at what point (let’s call it tau, the red line in Figure 7) did the behavior change?
+
 <img src='images/equation_2.png'>
-Lambda is a hyperparameter that can be used to represent the expected number of rides before and after Tau.  Using the MCMC, both lambdas and tau can be estimated.  This was performed for each census tract.  Figure 8 shows the results of the posterior for lambda1, lambda2, and tau for census tract 48453001100.
+
+Figure 8 shows the results of the posterior for lambda1, lambda2, and tau for census tract 48453001100.
 
 <img src='images/figure_8.png'>
 Figure 8--Posteriors for Lambda before and after a changepoint at tau.
 
-Tau of 276 falls at the beginning of January 2019.
+Tau falls solidly at 276 days, which would be the the beginning of January 2019.
 
 The graphs in figure 9 show lambda_1, lambda_2, and tau for the census tracts for which lambda was greater than 50.
 
 <img src='images/figure_9.png'>
 Figure 9--Lambda1, Lambda2, and tau for the busiest census tracts.
 
-Tau appears to be in the upper 200s for most of the census tracts with frequent trips.  This coincides with the steady increase in scooter popularity in 2019.
+Tau is in the upper 200s for most of the census tracts, which coincides with the steady increase in scooter popularity in 2019.
 
-The graph of lambda_2 above creates a predicted daily count of trips for the most popular census  tracts (not yet taking into account weekend vs. weekday) .
+The graph of lambda_2 above creates a predicted daily count of trips for the most popular census  tracts (not yet taking into account any seasonality) .
 
 ### Machine Learning Analysis
 
 The Jupyter notebook for this section can be found [here](https://github.com/trevbhatt/predicting_scooter_utilization/blob/master/machine_learning_analysis.ipynb).
 
 #### Ridge Regression
-The goal of this analysis is to predict the number of rides in a census tract on a given day.  In order to find the number of rides using the given data, the dataframe of rides for each tract can be resampled by day.
-In an attempt to capture the seasonality of the data, I implemented one hot encoding to expand the date column from 1 to 374 binary columns to represent year, day of year, day of month, and day of week.
-On the 48453001100 census tract, this resulted in a low r2 score (0.355) and a large mean absolute percent error.  The predicted and test values are shown on figure 10.
+Next, I tried using Ridge Regression to predict the number of rides in a census tract on a given day.  I resampled the dataframe by day.  To capture the seasonality of the data, I implemented one hot encoding to expand the date column from 1 to 374 binary columns to represent year, day of year, day of month, and day of week.
 
-<img src='images/figure_9.png'>
+On the 48453001100 census tract, the ridge regression had an r2 score (0.355) and a large mean absolute percent error.  The predicted and test values are shown on figure 10.
+
+<img src='images/figure_10.png'>
 Figure 10--Ridge Regression Results
 
 #### Batch Gradient Descent
@@ -118,19 +121,23 @@ Using the same one hot encoded data, I attempted a batch gradient descent method
 Figure 11: Convergence of the batch gradient descent model
 
 #### Facebook Prophet
-Facebook prophet is a forecasting procedure that makes prediction on time series data.  The major tunable hyperparameters of the Facebook Prophet model are trend, seasonality, and holidays (Letham 7).
+Facebook prophet is a forecasting procedure that makes prediction on time series data.  The major tunable hyperparameters of the Facebook Prophet model are trend, holidays, and seasonality (Letham 7).
 
 ##### Trends and Changepoints
+The first component is Trend.  Prophet accounts for the way that trends change over time using changepoints.
+
 In Figure 13, the changes in the slope of the trend line correspond to changepoints in the general trend of the daily use data.  These changepoints are highlighted in Figure 12.
 
 <img src='images/figure_12.png'>
 Figure 12: Regression line and confidence interval of predictions by Facebook Prophet for 48453001100
 
 ##### Holidays and South by Southwest
-At the beginning of March the city of Austin sees a major influx of visitors attending the popular South by Southwest conference.  Facebook prophet takes a dataframe of major events and holidays and measures their effect on the prediction.  Their effects can be seen in the holidays graph of Figure 12, notice the largest spike at the beginning of March.
+Facebook Prophet then accounts for holidays. At the beginning of March the city of Austin sees a major influx of visitors attending the popular South by Southwest conference.  Facebook Prophet takes a custom dataframe of major events and US holidays and measures their effect on the prediction.  Their effects can be seen in the holidays graph of Figure 12, notice the largest spike at the beginning of March.
 
 ##### Seasonality
-Seasonality can be specified yearly, monthly, weekly, and daily.  In this model, weekly and yearly seasonality effects are shown in figure 13.
+Third, Seasonality can be specified yearly, monthly, weekly, and daily.  In this model, weekly and yearly seasonality effects are shown in figure 13.
+
+Not surprisingly, the weekly effect surges on weekend, and there is a general increase in the warm summer months.
 
 <img src='images/figure_13.png'>
 igure  13-- Trend, Holidays, and Weekly and Yearly seasonality
@@ -138,7 +145,7 @@ igure  13-- Trend, Holidays, and Weekly and Yearly seasonality
 #### Business Impact
 
 ##### Fleet Usage
-Because these forecasts are the sum total of all scooter providers, it would be naive for one company to assume that they could place the predicted number of scooters and optimize their utilization.  However, these numbers can be used for a scooter provider to determine where to place what percentage of their fleet.
+The data on which these forecasts are based is the sum total of all scooter operators in Austin. We cannot assume that if we predict 1,000 rides in census tract X, that the operating company using this project would see 1,000 scooters used.  However, these numbers can be used to determine where to place what percentage of the fleet.  In Figure 14 I generated an area plot of the percentage distribution in the top 10 census tracts.
 
 <img src='images/figure_14.png'>
 Figure 14--Recommended fleet distribution.
@@ -152,7 +159,7 @@ Below are three forecasts for an example date (September 30, 2019) with the same
 <img src='images/3_forecasts.png'>
 
 ##### Daily Dashboard
-The distribution can be made into a daily dashboard that shows where in the prediction period the forecast was made, the percent distribution and the number of scooters to deploy for a given fleet size. Figure 16 shows an example of this dashboard.
+Ideally, this system would be integrated with the scooter operator's mobile app for the employees and contractors who place the scooters. However, to illustrate the business application of the model, I made the distribution into a daily dashboard that shows where in the prediction period the forecast was made, the percent distribution and the number of scooters to deploy for a given fleet size. I arbitrarily chose 1200 as the fleet size and made a prediction for September 30, 2019 to generate the dashboard for that day.
 
 <img src='images/figure_16a.png'>
 <img src='images/figure_16b.png'>
@@ -165,6 +172,8 @@ Below are some ideas for future enhancements to the model.
 
 ### Resources
 P. Bazin, “Linear Regression: Implementation, Hyperparameters, Comparison - Pavel Bazin: Software Engineering, Machine Learning,” Linear Regression: Implementation, Hyperparameters, Comparison, 26-Jan-2018. [Online]. Available: http://pavelbazin.com/post/linear-regression-hyperparameters/. [Accessed: Dec-2019].
+
 Scikit-learn: Machine Learning in Python, Pedregosa et al., JMLR 12, pp. 2825-2830, 2011.
+
 Taylor SJ, Letham B. 2017. Forecasting at scale. PeerJ Preprints 5:e3190v2 https://doi.org/10.7287/peerj.preprints.3190v2
 C. Davidson-Pilon, “Probabilistic-Programming-and-Bayesian-Methods-for-Hackers,” GitHub. [Online]. Available: https://github.com/CamDavidsonPilon/Probabilistic-Programming-and-Bayesian-Methods-for-Hackers. [Accessed: Dec-2019].
