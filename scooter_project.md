@@ -1,4 +1,13 @@
 ## Predicting Scooter utilization
+
+### [Check out the Github repository here](https://github.com/trevbhatt/predicting_scooter_utilization)
+Using Machine learning to improve strategic placement of scooters in Austin, TX.
+
+<img src="images/austin_scooter.jpg">
+
+**Project description:** Now ubiquitous, the electric scooter cruises through bike lanes and sidewalks of every major US city.  In order to stay competitive, operating companies need to ensure their scooters or e-bikes are highly utilized.  They must ensure that their fleets are in place to meet demand.  Using data provided by the city of Austin, TX, I implemented various machine learning strategies to predict optimal fleet distribution.  To jump directly to the Facebook Prophet model, [click here](#facebook-prophet).
+
+### Table of Contents
 - [Predicting Scooter utilization](#predicting-scooter-utilization)
   * [Importing and Cleaning the data](#importing-and-cleaning-the-data)
   * [Exploratory Data Analysis](#exploratory-data-analysis)
@@ -11,16 +20,6 @@
     + [Business Impact](#business-impact)
   * [Future Enhancements](#future-enhancements)
   * [Resources](#resources)
-
-<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
-
-
-### [Check out the Github repository here](https://github.com/trevbhatt/predicting_scooter_utilization)
-Using Machine learning to improve strategic placement of scooters in Austin, TX.
-
-<img src="images/austin_scooter.jpg">
-
-**Project description:** Now ubiquitous, the electric scooter cruises through bike lanes and sidewalks of every major US city.  In order to stay competitive, operating companies need to ensure their scooters or e-bikes are highly utilized.  They must ensure that their fleets are in place to meet demand.  Using data provided by the city of Austin, TX, I implemented various machine learning strategies to predict optimal fleet distribution.  To jump directly to the Facebook Prophet model, [click here](#facebook-prophet).
 
 ### Importing and Cleaning the data
 
