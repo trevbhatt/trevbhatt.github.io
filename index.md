@@ -8,5 +8,5 @@
 <img src="images/austin_scooter.jpg"/>
 
 ---
-#### [Previous Projects](/railroad.md)
+#### [Railroad Projects](/railroad.md)
 <img src="images/snake_river_bridge.jpeg"/>
