@@ -1,4 +1,27 @@
 ## Predicting Scooter utilization
+- [Predicting Scooter utilization](#predicting-scooter-utilization)
+  * [Importing and Cleaning the data](#importing-and-cleaning-the-data)
+  * [Exploratory Data Analysis](#exploratory-data-analysis)
+    + [Usage visualization](#usage-visualization)
+      - [Census Tract](#census-tract)
+      - [Time of Day and Day of Week](#time-of-day-and-day-of-week)
+    + [Bayesian Markov Chain Monte Carlo Data Analysis](#bayesian-markov-chain-monte-carlo-data-analysis)
+  * [Machine Learning Analysis](#machine-learning-analysis)
+    + [Ridge Regression](#ridge-regression)
+    + [Batch Gradient Descent](#batch-gradient-descent)
+    + [Facebook Prophet](#facebook-prophet)
+      - [Trends and Changepoints](#trends-and-changepoints)
+      - [Holidays and South by Southwest](#holidays-and-south-by-southwest)
+      - [Seasonality](#seasonality)
+    + [Business Impact](#business-impact)
+      - [Fleet Usage](#fleet-usage)
+      - [Daily Dashboard](#daily-dashboard)
+  * [Future Enhancements](#future-enhancements)
+  * [Resources](#resources)
+
+<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
+
+
 ### [Check out the Github repository here](https://github.com/trevbhatt/predicting_scooter_utilization)
 Using Machine learning to improve strategic placement of scooters in Austin, TX.
 
@@ -120,7 +143,7 @@ Using the same one hot encoded data, I attempted a batch gradient descent method
 <img src='images/figure_11.png'>
 Figure 11: Convergence of the batch gradient descent model
 
-####Facebook Prophet
+#### Facebook Prophet
 Facebook prophet is a forecasting procedure that makes prediction on time series data.  The major tunable hyperparameters of the Facebook Prophet model are trend, holidays, and seasonality (Letham 7).
 
 ##### Trends and Changepoints
