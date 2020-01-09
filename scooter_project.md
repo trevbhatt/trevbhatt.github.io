@@ -3,19 +3,12 @@
   * [Importing and Cleaning the data](#importing-and-cleaning-the-data)
   * [Exploratory Data Analysis](#exploratory-data-analysis)
     + [Usage visualization](#usage-visualization)
-      - [Census Tract](#census-tract)
-      - [Time of Day and Day of Week](#time-of-day-and-day-of-week)
     + [Bayesian Markov Chain Monte Carlo Data Analysis](#bayesian-markov-chain-monte-carlo-data-analysis)
   * [Machine Learning Analysis](#machine-learning-analysis)
     + [Ridge Regression](#ridge-regression)
     + [Batch Gradient Descent](#batch-gradient-descent)
     + [Facebook Prophet](#facebook-prophet)
-      - [Trends and Changepoints](#trends-and-changepoints)
-      - [Holidays and South by Southwest](#holidays-and-south-by-southwest)
-      - [Seasonality](#seasonality)
     + [Business Impact](#business-impact)
-      - [Fleet Usage](#fleet-usage)
-      - [Daily Dashboard](#daily-dashboard)
   * [Future Enhancements](#future-enhancements)
   * [Resources](#resources)
 
@@ -27,7 +20,7 @@ Using Machine learning to improve strategic placement of scooters in Austin, TX.
 
 <img src="images/austin_scooter.jpg">
 
-**Project description:** Now ubiquitous, the electric scooter cruises through bike lanes and sidewalks of every major US city.  In order to stay competitive, operating companies need to ensure their scooters or e-bikes are highly utilized.  They must ensure that their fleets are in place to meet demand.  Using data provided by the city of Austin, TX, I implemented various machine learning strategies to predict optimal fleet distribution.  To jump directly to the Facebook Prophet model, [click here](#Facebook-Prophet)
+**Project description:** Now ubiquitous, the electric scooter cruises through bike lanes and sidewalks of every major US city.  In order to stay competitive, operating companies need to ensure their scooters or e-bikes are highly utilized.  They must ensure that their fleets are in place to meet demand.  Using data provided by the city of Austin, TX, I implemented various machine learning strategies to predict optimal fleet distribution.  To jump directly to the Facebook Prophet model, [click here](#facebook-prophet).
 
 ### Importing and Cleaning the data
 
