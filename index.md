@@ -1,1 +1,1 @@
-## [Portfolio](http://trevorb.io)
+## [Click here to see my portfolio](http://trevorb.io)
